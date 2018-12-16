@@ -79,9 +79,16 @@ def zipcodedata(zipcode):
         zip_analytics["totalcrime"] = result[7]
         zip_analytics["rankStars"] = result[8]
 
-    print(zip_analytics)
     return jsonify(zip_analytics)
-    
+
+@app.route("/allzipcodes")
+def allzipcodes():
+    """Return the all zipcodes."""
+    stmt = db.session.query(ZipAnalytics).statement
+    df = pd.read_sql_query(stmt, db.session.bind)
+
+    return jsonify(list(df['zipcode']))
+
 @app.route("/alldata")
 def alldata():
     """Return the all data."""
