@@ -46,6 +46,7 @@ function buildCharts(factor) {
   //d3.json(sampleDataURL).then(function(data){
     d3.json(sampleDataURL, function(error, data){
 
+    var passedFactor = factor;
   // Build a Pie Chart
   if (factor == "Sales Price"){
     factor = "saleprice"
@@ -81,7 +82,7 @@ function buildCharts(factor) {
     };
 
     var layout = {
-      title: "Topmost zip codes by Market Factor",
+      title: `Topmost zip codes by ${passedFactor}`,
       margin: {
         l: 100,
         r: 100,
@@ -96,7 +97,11 @@ function buildCharts(factor) {
         dtick: 0.25,
         ticklen: 8,
         tickwidth: 4,
-        tickcolor: '#000'
+        tickcolor: '#000',
+        title : 'Zipcodes'
+      },
+      xaxis: {
+        title: passedFactor
       }
     };
     
