@@ -260,8 +260,8 @@ with open("Ny_Data.csv", encoding="iso-8859-1") as csv_file:
         saleprice = None
         totalcrime = None
 
-zip_agg = session.query(School.zipcode, func.avg(School.rank), func.avg(School.rankStars)).\
-group_by(School.zipcode).order_by(School.zipcode)
+# zip_agg = session.query(School.zipcode, func.avg(School.rank), func.avg(School.rankStars)).\
+# group_by(School.zipcode).order_by(School.zipcode)
 
 zip_agg = (
     session.query(
@@ -296,6 +296,22 @@ from_select((
     ZipAnalytics.rankStars
     ), zip_agg))
 
+session.commit()
+# queryresult = session.query(ZipAnalytics)
+
+# for row in queryresult:
+#     print('--------')
+#     print(row.zipcode)
+#     print(row.latitude)
+#     print(row.longitude)
+#     print(row.saleprice)
+#     print(row.rent)
+#     print(row.marketindex)
+#     print(row.totalincome)
+#     print(row.totalcrime)
+#     print(row.rank)
+#     print(row.rankStars)
+#     print('*********')
 
 outfile = open('zipanalytics_output.csv', 'w')
 outcsv = csv.writer(outfile)
