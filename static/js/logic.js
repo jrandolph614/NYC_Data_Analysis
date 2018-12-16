@@ -13,7 +13,7 @@ function buildMetadata(newzipcode) {
 
   // Use `Object.entries` to add each key and value pair to the panel
   Object.entries(data).forEach(([key, value]) => {
-    console.log(key);
+    //console.log(key);
     switch(key){
       case "marketindex":
         key = "Market Index";
@@ -39,77 +39,84 @@ function buildMetadata(newzipcode) {
   });
 }
 
-function buildCharts(sample) {
-
+function buildCharts(factor) {
   // Use `d3.json` to fetch the sample data for the plots
-  var sampleDataURL = `/samples/${sample}`;
+  var sampleDataURL = `/toptenzipcodedata/${factor}`;
 
   //d3.json(sampleDataURL).then(function(data){
     d3.json(sampleDataURL, function(error, data){
-  // Build a Bubble Chart using the sample data
-  var traceBubble = {
-    x: data["otu_ids"],
-    y: data["sample_values"],
-    text: data["otu_labels"],
-    mode: 'markers',
-    marker: {
-      size: data["sample_values"],
-      color: data["otu_ids"]
-    }
-  };
-  
-  var dataBubble = [traceBubble];
-  
-  var layoutBubble = {
-    showlegend: false,
-    height: 600,
-    width: 1200,
-    xaxis: {title: "OTU ID"}
-  };
-  
-  Plotly.newPlot('bubble', dataBubble, layoutBubble);
 
   // Build a Pie Chart
+  if (factor == "Sales Price"){
+    factor = "saleprice"
+  }
+  if (factor == "Total Crime"){
+    factor = "totalcrime"
+  }
+  if (factor == "School Rating"){
+    factor = "rankStars"
+  }
+  if (factor == "Rent"){
+    factor = "rent"
+  }
+  if(factor == "Market Health Index"){
+    factor = "marketindex"
+  }
+  if (factor == "Total Income"){
+    factor = "totalincome"
+  }
+    
+    var zipcode = data.zipcode;
+    var sample_values = data[factor].reverse();;
+    console.log(zipcode);
 
-    var minLength = Math.min(data["otu_ids"].length, data["sample_values"].length,data["otu_labels"].length );
-    var merge_data_set = [];
 
-    //console.log(minLength);
-    for(i=0; i< minLength; i++)
-    {
-      var dict = {};
-      dict["otu_ids"] = data["otu_ids"][i];
-      dict["sample_values"] = data["sample_values"][i];
-      dict["otu_labels"] = data["otu_labels"][i];
-      merge_data_set.push(dict);
+    var traceBar = {
+      x: sample_values,
+      y: zipcode,
+      text: zipcode,
+      name: "Zip",
+      type: "bar",
+      orientation: "h"
     };
 
-    var sortedData = merge_data_set.sort((first, second) => second.sample_values - first.sample_values);
-
-    var top10Data = sortedData.slice(0,10);
-
-    var otu_ids = top10Data.map(row => row.otu_ids);
-    var sample_values = top10Data.map(row => row.sample_values);
-    var otu_labels = top10Data.map(row => row.otu_labels.replace(/(([^;]*;){2}[^;]*);/g, '$1<br>   '));
-
-
-    var tracePie = {
-      labels: otu_ids,
-      values: sample_values,
-      type :'pie',
-      hovertext: otu_labels,
-      hoverinfo: 'label+text+value+percent'
+    var layout = {
+      title: "Topmost zip codes by Market Factor",
+      margin: {
+        l: 100,
+        r: 100,
+        t: 100,
+        b: 100
+      },
+      yaxis:{
+        type:'category',
+        autotick: false,
+        ticks: 'outside',
+        tick0: 0,
+        dtick: 0.25,
+        ticklen: 8,
+        tickwidth: 4,
+        tickcolor: '#000'
+      }
     };
+    
 
+    // // data
+    // var data = [trace1];
 
-    var dataPie = [tracePie];
-
-    //console.log(dataPie);
-
-    Plotly.newPlot("pie", dataPie);
+    // var traceBar = {
+    //   labels: zipcode,
+    //   values: sample_values,
+    //   type :'bar',
+    //   hovertext: zipcode,
+    //   hoverinfo: 'text+value+percent'
+    // };
+    var dataBar = [traceBar];
+    Plotly.newPlot("bar", dataBar, layout);
   });
 
 }
+
 
 
 function buildGauge(newzipcode){
@@ -208,16 +215,35 @@ var selector = d3.select("#selDataset");
   // Use the first zipcode from the list to build the initial plots
   const firstzipcode = zipcodeNames[0];
   //console.log(firstzipcode);
-  //buildCharts(firstzipcode);
   buildMetadata(firstzipcode);
 });
+
+
+var factorSelector = d3.select("#selFactor")
+d3.json("/names", function(error, factors){
+
+  factors.forEach((factor) => {
+    factorSelector
+      .append("option")
+      .text(factor)
+      .property("value", factor);
+  });
+  const firstfactor = factors[0];
+  buildCharts(firstfactor);
+});
+
 }
 
 function optionChanged(newzipcode) {
 // Fetch new data each time a new sample is selected
-//buildCharts(newzipcode);
 buildMetadata(newzipcode);
 }
 
+function factorChanged(newfactor) {
+  // Fetch new data each time a new sample is selected
+  buildCharts(newfactor);
+  }
+
+  
 // Initialize the dashboard
 init();

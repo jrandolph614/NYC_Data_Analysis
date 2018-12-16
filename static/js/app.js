@@ -168,7 +168,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circletext) {
   //d3.json(allDataURL).then(function(zipdata){
     d3.json(allDataURL, function(error, zipdata){
 
-        console.log(zipdata);
+        //console.log(zipdata);
     // parse data
     zipdata.forEach(function(data) {
       data.saleprice = +data.saleprice;
@@ -179,7 +179,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circletext) {
       data.rankStars = Math.round(+data.rankStars * 100) / 100;
     });
   
-    console.log(zipdata);
+    //console.log(zipdata);
     // xLinearScale function above csv import
     var xLinearScale = xScale(zipdata, chosenXAxis);
 
@@ -295,8 +295,8 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circletext) {
         var value = d3.select(this).attr("value");
         if (value === "saleprice" || value === "rent" || value === "marketindex") {
   
-            console.log("X axis clicked");
-            console.log(value);
+            //console.log("X axis clicked");
+            //console.log(value);
           // replaces chosenXAxis with value
           chosenXAxis = value;
 
@@ -350,8 +350,8 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circletext) {
         }
 
         if (value === "rankStars" || value === "totalcrime" || value === "totalincome") {
-            console.log("*************");
-            console.log(value);
+            //console.log("*************");
+            //console.log(value);
 
             // replaces chosenXAxis with value
             chosenYAxis = value;

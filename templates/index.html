@@ -59,10 +59,14 @@
         </div>
       </div>
       <div class="col-md-5">
-        <div id="gauge"></div>
+        <div id="gauge" style="padding-top: 35px;"></div>
       </div>
       <div class="col-md-5">
-        <div id="pie"></div>
+          <div class="factor">
+              <h5>Select Market Factor:</h5>
+              <select id="selFactor" onchange="factorChanged(this.value)"></select>
+            </div>
+          <div id="bar"></div>
       </div>
     </div>
   </div>
