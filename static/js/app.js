@@ -208,7 +208,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circletext) {
       .attr("cx", d => xLinearScale(d[chosenXAxis]))
       .attr("cy", d => yLinearScale(d[chosenYAxis]))
       .attr("r", 10)
-      .attr("fill", "#37778b")
+      .attr("fill", "salmon") //#37778b
       .attr("opacity", ".7");
 
     var circletext = chartGroup.selectAll("cxtext")

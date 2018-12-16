@@ -38,20 +38,22 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>New York City</h1>
-        <p>Use our visualizations to learn more about the city</p>
-      </div>
+        <div class="col-md-12 jumbotron text-center">
+            <div class="container" style="color: white;"> 
+                <h1>New York City</h1>
+                <p>Use our visualizations to learn more about the city</p>
+            </div>
+        </div>
     </div>
     <div class="row">
       <div class="col-md-2">
         <div class="well">
-          <h5>SELECT Sample:</h5>
+          <h5>Select Zipcode:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h3 class="panel-title">Sample MetaData</h3>
+            <h3 class="panel-title">Zipcode Details</h3>
           </div>
           <div id="sample-metadata" class="panel-body" style="font-size: small;"></div>
         </div>
