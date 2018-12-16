@@ -13,6 +13,23 @@ function buildMetadata(newzipcode) {
 
   // Use `Object.entries` to add each key and value pair to the panel
   Object.entries(data).forEach(([key, value]) => {
+    console.log(key);
+    switch(key){
+      case "marketindex":
+        key = "Market Index";
+        break;
+      case "rankStars":
+        key = "School Rating";
+        break;
+      case "saleprice":
+        key = "Sales Price";
+        break;
+      default:
+        key = key;
+    }
+    if (value==null){
+      value = "NA";
+    }
     var li = zipcodeMetaData.append("tr").append("td").text(`${key.charAt(0).toUpperCase() + key.slice(1).toLowerCase()}: ${value}`);
   });
   
@@ -105,7 +122,7 @@ var mhiURL = `/zipcodedata/${newzipcode}`;
     var level = Number(data["marketindex"]);
 
     // Trig to calc meter point
-    var degrees = 180 - level*20,
+    var degrees = 180 - level*18,
         radius = .5;
     var radians = degrees * Math.PI / 180;
     var x = radius * Math.cos(radians);
@@ -126,12 +143,13 @@ var mhiURL = `/zipcodedata/${newzipcode}`;
         name: 'speed',
         text: level,
         hoverinfo: 'text+name'},
-      { values: [50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50/9, 50],
+      { values: [50/10, 50/10, 50/10, 50/10, 50/10, 50/10, 50/10, 50/10, 50/10, 50/10, 50],
       rotation: 90,
-      text: ['8-9', '7-8', '6-7', '5-6','4-5', '3-4', '2-3', '1-2', '0-1', ''],
+      text: ['9-10', '8-9', '7-8', '6-7', '5-6','4-5', '3-4', '2-3', '1-2', '0-1', ''],
       textinfo: 'text',
       textposition:'inside',
-      marker: {colors:[     'rgba(14, 127, 0, .5)', 
+      marker: {colors:[     'rgba(0, 127, 0, 0.5)',
+                            'rgba(80, 127, 0, .5)', 
                             'rgba(110, 154, 22, .5)',
                             'rgba(170, 202, 42, .5)', 
                             'rgba(202, 209, 95, .5)', 
@@ -141,7 +159,7 @@ var mhiURL = `/zipcodedata/${newzipcode}`;
                             'rgba(244, 241, 229, .5)',
                             'rgba(250, 243, 235, .5)',
                             'rgba(255, 255, 255, 0)']},
-      labels: ['8-9', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
+      labels: ['9-10', '8-9', '7-8', '6-7', '5-6', '4-5', '3-4', '2-3', '1-2', '0-1', ''],
       hoverinfo: 'label',
       hole: .5,
       type: 'pie',
