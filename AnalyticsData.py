@@ -10,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 # Import modules to declare columns and column data types
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, DECIMAL
 
 
 class School(Base):
@@ -36,7 +36,7 @@ class School_Agg(Base):
     id = Column(Integer, primary_key=True)
     zipcode = Column(String(10))
     rank = Column(Integer)
-    rankStars = Column(Integer)
+    rankStars = Column(Float)
 
 class HouseRent_Agg(Base):
     __tablename__ = 'houserent_agg'
@@ -79,7 +79,7 @@ class ZipAnalytics(Base):
     saleprice = Column(Integer)
     totalcrime = Column(Integer)
     rank = Column(Integer)
-    rankStars = Column(Integer)
+    rankStars = Column(Float)
     rent = Column(Float)
     marketindex = Column(Float)
     totalincome = Column(Integer)
@@ -134,7 +134,7 @@ for row in data:
         year = int(row["rankHistory"][0]["year"])
         rank = int(row["rankHistory"][0]["rank"])
         rankOf = int(row["rankHistory"][0]["rankOf"])
-        rankStars = int(row["rankHistory"][0]["rankStars"])
+        rankStars = round(float(row["rankHistory"][0]["rankStars"]),2)
 
     school_row = School(
         districtid = districtid,
@@ -194,7 +194,7 @@ with open("MarketHealthIndex_Zip.csv", encoding="iso-8859-1") as csv_file:
         zipcode = row[1]
         state = row[3]
         city = row[2]
-        marketindex = row[7]
+        marketindex = round(float(row[7]),2)
     
         market_row = MarketHealth_Agg(
             zipcode = zipcode,
@@ -270,11 +270,11 @@ zip_agg = (
         CrimePrice_Agg.longitude,
         CrimePrice_Agg.saleprice,
         HouseRent_Agg.rent,
-        MarketHealth_Agg.marketindex,
+        func.round(MarketHealth_Agg.marketindex,2),
         Income_Agg.totalincome,
         CrimePrice_Agg.totalcrime,
         School_Agg.rank,
-        School_Agg.rankStars
+        func.round(School_Agg.rankStars,2)
         ).
         outerjoin(School_Agg, CrimePrice_Agg.zipcode==School_Agg.zipcode).
         outerjoin(HouseRent_Agg, CrimePrice_Agg.zipcode==HouseRent_Agg.zipcode).
