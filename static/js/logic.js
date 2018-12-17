@@ -94,14 +94,15 @@ function buildCharts(factor) {
         autotick: false,
         ticks: 'outside',
         tick0: 0,
-        dtick: 0.25,
-        ticklen: 8,
-        tickwidth: 4,
+        dtick: 0.10,
+        ticklen: 6,
+        tickwidth: 2,
         tickcolor: '#000',
         title : 'Zipcodes'
       },
       xaxis: {
-        title: passedFactor
+        title: passedFactor,
+        
       }
     };
     
