@@ -158,10 +158,12 @@ def toptendata(factor):
 
     stmt = db.session.query(ZipAnalytics).statement
     df = pd.read_sql_query(stmt, db.session.bind)
-    toptendata = df[['zipcode', factor]].sort_values(by = factor, ascending=False).head(15)
+    toptendata = df[['zipcode', 'latitude', 'longitude', factor]].sort_values(by = factor, ascending=False).head(15)
     data = {
         "zipcode" : toptendata.zipcode.values.tolist(),
-        factor : toptendata[factor].values.tolist()
+        factor : toptendata[factor].values.tolist(),
+        "latitude" : toptendata.latitude.values.tolist(),
+        "longitude" : toptendata.longitude.values.tolist()
     }
 
     return jsonify(data)

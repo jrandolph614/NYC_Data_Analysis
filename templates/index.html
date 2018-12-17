@@ -26,10 +26,9 @@
   <link rel="stylesheet" href="static/css/style.css">
   <link rel="stylesheet" href="static/css/d3Style.css">
 
-  <!-- Our CSS -->
-  <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
-  <!-- <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="d3Style.css"> -->
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.2.0/aos.css" />
+
 
 </head>
 
@@ -40,8 +39,10 @@
     <div class="row">
         <div class="col-md-12 jumbotron text-center">
             <div class="container" style="color: white;"> 
-                <h1>New York City</h1>
-                <p>Use our visualizations to learn more about the city</p>
+              <div data-aos="slide-up" data-aos-duration="2500">
+                  <h1 >New York City</h1>
+                  <p>Use our visualizations to learn more about the city</p>
+              </div>
             </div>
         </div>
     </div>
@@ -55,41 +56,59 @@
           <div class="panel-heading">
             <h3 class="panel-title">Zipcode Details</h3>
           </div>
-          <div id="zipcode-metadata" class="panel-body" style="font-size: small;"></div>
+          <div id="zipcode-metadata" class="panel-body" style="font-size: small;" data-aos="slide-up" data-aos-duration="2000"></div>
         </div>
       </div>
+      
+      
       <div class="col-md-5">
-        <div id="gauge" style="padding-top: 35px;"></div>
+        <div id="gauge"  data-aos="fade-left" data-aos-duration="2000"></div>
       </div>
       <div class="col-md-5">
-          <div class="factor">
-              <h5>Select Market Factor:</h5>
-              <select id="selFactor" onchange="factorChanged(this.value)"></select>
-            </div>
-          <div id="bar"></div>
-      </div>
+        <div class="factor">
+            <h5>Select Market Factor:</h5>
+            <select id="selFactor" onchange="factorChanged(this.value)"></select>
+          </div>
+        <div id="bar" data-aos="slide-up"data-aos-duration="2000"></div>
+    </div>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12  col-md-12">
-      <div class="chart">
+      <div class="chart" data-aos="zoom-out" data-aos-duration="3000">
       </div>
     </div>
   </div>
+  <div class="row">
+      <div class="col-xs-12  col-md-12">
+          <div id="myDiv"></div>
+        
+        </div>
+      </div>
+    </div>
 
 
-  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.7.0/d3.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
   
 
   <script type="text/javascript" src="../static/js/logic.js"></script>
   <script type="text/javascript" src="../static/js/app.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.2.0/aos.js"></script>
+  <script>
+    $(window).on('resize', function () { AOS.refresh(); });
+    $(window).on('load', function() { setTimeout(AOS.refreshHard, 150); });
+
+    $(document).ready(function () {
+      AOS.init({ 
+      startEvent: 'load', 
+      easing: 'ease-in-out-quart', 
+      duration: 600,  once: false });            
+    });
+  </script>
   
 </body>
 

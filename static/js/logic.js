@@ -69,7 +69,7 @@ function buildCharts(factor) {
     
     var zipcode = data.zipcode;
     var sample_values = data[factor].reverse();;
-    console.log(zipcode);
+    //console.log(zipcode);
 
 
     var traceBar = {
@@ -105,17 +105,6 @@ function buildCharts(factor) {
       }
     };
     
-
-    // // data
-    // var data = [trace1];
-
-    // var traceBar = {
-    //   labels: zipcode,
-    //   values: sample_values,
-    //   type :'bar',
-    //   hovertext: zipcode,
-    //   hoverinfo: 'text+value+percent'
-    // };
     var dataBar = [traceBar];
     Plotly.newPlot("bar", dataBar, layout);
   });
