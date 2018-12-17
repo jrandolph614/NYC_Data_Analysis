@@ -41,12 +41,3 @@ body {
   position:relative;
   top:70%;
 }
-
-.box {
-  width: 40%;
-  height: 200px;
-  border-radius: 2px;
-  padding: 10px;
-  color: white;
-  text-align: center;
-}
