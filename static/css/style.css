@@ -41,3 +41,22 @@ body {
   position:relative;
   top:70%;
 }
+
+
+body {
+  padding-left: 40px;
+  margin: 0px;
+}
+
+#map{
+  height: 80%;
+  width: 80%;
+  margin-top: 30px;
+  margin-left: 120px;
+}
+
+body,
+html {
+  height: 80%;
+  width: 99%
+}

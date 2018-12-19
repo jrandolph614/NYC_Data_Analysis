@@ -141,7 +141,7 @@ def alldata():
 
 @app.route("/toptenzipcodedata/<factor>")
 def toptendata(factor):
-    """Return the top 20 zip codes for entered factor."""
+    """Return the top 15 zip codes for entered factor."""
     
     if factor == "Sales Price":
         factor = "saleprice"
@@ -159,6 +159,35 @@ def toptendata(factor):
     stmt = db.session.query(ZipAnalytics).statement
     df = pd.read_sql_query(stmt, db.session.bind)
     toptendata = df[['zipcode', 'latitude', 'longitude', factor]].sort_values(by = factor, ascending=False).head(15)
+    data = {
+        "zipcode" : toptendata.zipcode.values.tolist(),
+        factor : toptendata[factor].values.tolist(),
+        "latitude" : toptendata.latitude.values.tolist(),
+        "longitude" : toptendata.longitude.values.tolist()
+    }
+
+    return jsonify(data)
+
+@app.route("/zipcodebyfactor/<factor>")
+def zipcodebyfactor(factor):
+    """Return the all zip codes and lat long for entered factor."""
+    
+    if factor == "Sales Price":
+        factor = "saleprice"
+    elif factor == "Total Crime":
+        factor = "totalcrime"
+    elif factor == "School Rating":
+        factor = "rankStars"
+    elif factor == "Rent":
+        factor = "rent"
+    elif factor == "Market Health Index":
+        factor = "marketindex"
+    elif factor == "Total Income":
+        factor = "totalincome"
+
+    stmt = db.session.query(ZipAnalytics).statement
+    df = pd.read_sql_query(stmt, db.session.bind)
+    toptendata = df[['zipcode', 'latitude', 'longitude', factor]].sort_values(by = factor, ascending=False)
     data = {
         "zipcode" : toptendata.zipcode.values.tolist(),
         factor : toptendata[factor].values.tolist(),
